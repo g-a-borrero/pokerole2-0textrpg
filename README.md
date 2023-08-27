@@ -8,6 +8,7 @@ A pitiful attempt to make the TTRPG (version 2.0) playable as a text RPG adventu
 - [x] Pokemon Class
 - [ ] Moves
 - [x] Pokedex
+  - Need to upload Pokemon from Togepi onward still to the data folder...
 - [x] Abilities
 - [x] Natures
 - [ ] Items
