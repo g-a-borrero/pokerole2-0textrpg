@@ -97,6 +97,9 @@ class Pokemon:
 		self.set_socs(socs)		
 		self.set_skills(skills)
 		self.set_calcs()
+
+		self.inventory = []
+
 		if self.species in ["Human", "Trainer"]:
 			humans_len = len(Pokemon.every["Human"])
 			self.id = f"{humans_len:05d}_Human_{self.name}"
