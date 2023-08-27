@@ -6,15 +6,15 @@ A pitiful attempt to make the TTRPG (version 2.0) playable as a text RPG adventu
 
 # What I'm Working On
 - [x] Pokemon Class
-- [ ] Moves
+- [x] Moves
 - [x] Pokedex
-  - Need to upload Pokemon from Togepi onward still to the data folder...
 - [x] Abilities
 - [x] Natures
 - [ ] Items
 - [ ] Rooms
 - [ ] Battle System
 - [ ] NPCs
+- [ ] Character Creation
 - [ ] Save System
 
 # Other Notes
