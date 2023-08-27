@@ -10,6 +10,7 @@ A pitiful attempt to make the TTRPG (version 2.0) playable as a text RPG adventu
 - [x] Pokedex
 - [x] Abilities
 - [x] Natures
+- [ ] Descriptions
 - [ ] Items
 - [ ] Rooms
 - [ ] Battle System
