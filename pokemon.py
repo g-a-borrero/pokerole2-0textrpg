@@ -97,12 +97,13 @@ class Pokemon:
 		self.set_socs(socs)		
 		self.set_skills(skills)
 		self.set_calcs()
-		if self.species == "Human":
+		if self.species in ["Human", "Trainer"]:
 			humans_len = len(Pokemon.every["Human"])
 			self.id = f"{humans_len:05d}_Human_{self.name}"
 			Pokemon.every["Human"] += [(self.id, self)]
 		else:
 			self.set_ability()
+			self.set_moves()
 			pokemon_len = len(Pokemon.every["Pokemon"])
 			self.id = f"{pokemon_len:05d}_{self.species}"
 			Pokemon.every["Pokemon"] += [(self.id, self)]
@@ -195,14 +196,14 @@ class Pokemon:
 		self.special_defense = self.insight
 
 	def set_ability(self):
-		ab_num = random.randint(255)
+		ab_num = random.randint(0,255)
 		ab_list = []
 		for ab in [pokedex[pokedex['Species']==self.species]['Ability1'].values[0], pokedex[pokedex['Species']==self.species]['Ability2'].values[0], pokedex[pokedex['Species']==self.species]['Hidden Ability'].values[0]]:
 			if ab != "":
 				ab_list.append(ab)
 		if len(ab_list) == 1:
 			self.ability = ab_list[-1]
-		elif ab_num == 254:
+		elif ab_num == 255:
 			self.ability = ab_list[-1]
 		elif ab_num % 2 == 0:
 			self.ability = ab_list[0]
@@ -214,6 +215,21 @@ class Pokemon:
 		self.ability_effect = abilities[abilities['Name']==ab]['Effect'].values[0]
 		self.ability_description = abilities[abilities['Name']==ab]['Description'].values[0]
 
+	def set_moves(self):
+		pkmn_moveset = {}
+		for each_rank in Pokemon.ranks:
+			pkmn_moveset[each_rank] = []
+		for each_rank in pokedex[pokedex['Species']==self.species]['Moves Learned'].values[0]:
+			pkmn_moveset[each_rank['Learned']].append(each_rank['Name'])
+		moveset = []
+		for each_rank in Pokemon.ranks:
+			moveset.append(pkmn_moveset[each_rank])
+			if each_rank == self.rank:
+				break
+		moveset = sum(moveset, [])
+		self.moves = moveset if self.maxmoves >= len(moveset) else random.sample(moveset, k=self.maxmoves)
+		
+
 	def display(self):
 		print("-"*50)
 		print(self.species + " (" + self.name + ")\tRank: " + self.rank)
@@ -222,7 +238,7 @@ class Pokemon:
 		print("-"*50)
 		print("HP: %d/%d\t\tMax Moves: %d" % (self.currenthp, self.maxhp, self.maxmoves))
 		print("Defense: %d\tSpecial Defense:%d" % (self.defense, self.special_defense))
-		print("initiative: %d\tEvasion: %d\tClash:%d" % (self.initiative, self.battle_evasion, self.battle_clash))
+		print("Initiative: %d\tEvasion: %d\tClash:%d" % (self.initiative, self.battle_evasion, self.battle_clash))
 		print("-"*50)
 		print("Strength: %d\tVitality: %d\tDexterity: %d" % (self.strength, self.vitality, self.dexterity))
 		print("Insight: %d\tSpecial: %d" % (self.insight, self.special))
@@ -230,6 +246,8 @@ class Pokemon:
 		print("Tough: %d\tCool: %d\t\tBeauty: %d" % (self.tough, self.cool, self.beauty))
 		print("Clever: %d\tCute: %d" % (self.clever, self.cute))
 		print("-"*50)
+		if self.species not in ["Human", "Trainer"]:
+			print(self.moves)
 
 """
 abc = Pokemon("Pikachu", name="Sparky", rank="Random", rand=True)
