@@ -115,10 +115,10 @@ class Pokemon:
 		self.species = species.title() if species.title() not in ["Human", "Trainer"] else "Human"
 		self.name = name if name != "" else self.species
 		self.rank = rank.title() if rank.title() != "Random" else Pokemon.ranks[random.randint(0,len(Pokemon.ranks)-1)]
-		self.nature = nature.title() if nature else natures.loc[random.randint(0, len(natures)-1)]['Name']
-		self.confidence = natures[natures['Name']==self.nature]['Confidence'].values[0]
-		self.nature_keywords = natures[natures['Name']==self.nature]['Keywords'].values[0]
-		self.nature_description = natures[natures['Name']==self.nature]['Description'].values[0]
+		self.nature_ = nature.title() if nature else natures.loc[random.randint(0, len(natures)-1)]['Name']
+		self.confidence = natures[natures['Name']==self.nature_]['Confidence'].values[0]
+		self.nature_keywords = natures[natures['Name']==self.nature_]['Keywords'].values[0]
+		self.nature_description = natures[natures['Name']==self.nature_]['Description'].values[0]
 		self.set_age(age)
 
 	def set_age(self, age):
