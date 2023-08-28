@@ -29,4 +29,4 @@ for index, js in enumerate(json_files):
         outs = json_text['Directions'][9]['Out']
         up = json_text['Directions'][10]['Up']
         down = json_text['Directions'][11]['Down']
-        rooms.loc[index] = [ids, short_desc, region, location, long_desc, inv, n, ne, e, se, s, sw, w, nw, ins, outs, up, down]
+        rooms.loc[index] = [ids, short_desc, region, location, long_desc, inv, inside, n, ne, e, se, s, sw, w, nw, ins, outs, up, down]
