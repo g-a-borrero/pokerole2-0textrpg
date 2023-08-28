@@ -57,6 +57,8 @@ def char_creation():
 	print("You're just starting out, so your rank is that of a Starter.")
 	player_nature = input("How would you describe your nature? Adamant, Bashful, Bold, Brave, Calm, Careful, Docile, Gentle, Hardy, Hasty, Impish, Jolly, Lax, Lonely, Mild, Modest, Naive, Naughty, Quiet, Quirky, Rash, Relaxed, Sassy, Serious, Timid?\n> ")
 	print("Aah, I see.")
-	player = Pokemon("Human", name=player_name, rank="Starter", age=player_age, nature=player_nature, rand=True)
+	player_random = input("Would you like to leave your abilities to fate?\n> ")
+	player_random = True if player_random.lower() in ["yes", "y", "t", "yeah", "definitely", "deffo"] else False
+	player = Pokemon("Human", name=player_name, rank="Starter", age=player_age, nature=player_nature, rand=player_random)
 	print("So you're a %s Starter trainer, age %d, named %s. Your journey starts now!" % (player.nature_, player.age, player.name))
 	return [True, 1]
