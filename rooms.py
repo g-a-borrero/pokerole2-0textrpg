@@ -5,7 +5,7 @@ import pandas as pd
 path_to_json = 'data/Rooms/'
 json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('.json')]
 
-rooms = pd.DataFrame(columns=['ID', 'Short Description', 'Region', 'Location', 'Long Description', 'Inventory', 'north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest', 'in', 'out', 'up', 'down'])
+rooms = pd.DataFrame(columns=['ID', 'Short Description', 'Region', 'Location', 'Long Description', 'Inventory', 'Inside', 'north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest', 'in', 'out', 'up', 'down'])
 
 for index, js in enumerate(json_files):
     with open(os.path.join(path_to_json, js)) as json_file:
