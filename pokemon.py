@@ -98,7 +98,7 @@ class Pokemon:
 		self.set_skills(skills)
 		self.set_calcs()
 
-		self.inventory = []
+		self.inventory = {}
 
 		if self.species in ["Human", "Trainer"]:
 			humans_len = len(Pokemon.every["Human"])
