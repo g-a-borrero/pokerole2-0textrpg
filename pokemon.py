@@ -63,6 +63,11 @@ class Pokemon:
 		soc_max = 5
 
 		if rand:
+			if self.species in ["Human", "Trainer"]:
+				skills["Crafts"] = 0
+				skills["Lore"] = 0
+				skills["Medicine"] = 0
+				skills["Science"] = 0
 			rand_dist(ranks_skills[self.rank], skills, skill_keys, max_total=ranks_skills_max[self.rank])
 			if self.species not in ["Human", "Trainer"]:
 				skills["Crafts"] = 0
@@ -91,8 +96,106 @@ class Pokemon:
 			rand_dist(attr_total, attrs, attr_keys, attr_max)
 			rand_dist(soc_total, socs, soc_keys, soc_max)
 		else:
-			pass
-
+			skills["Crafts"] = 0
+			skills["Lore"] = 0
+			skills["Medicine"] = 0
+			skills["Science"] = 0
+			print("You have %d points to expend in total. You may not put more than %d points in a given skill." % (ranks_skills[self.rank], ranks_skills_max[self.rank]))
+			skill_str = """
+			Alert: {Alert}\tCrafts: {Crafts}\tMedicine: {Medicine}
+			Allure: {Allure}\tEtiquette: {Etiquette}\tNature: {Nature}
+			Athletic: {Athletic}\tEmpathy: {Empathy}\tPerform: {Perform}
+			Brawl: {Brawl}\tEvasion: {Evasion}\tScience: {Science}
+			Channel: {Channel}\tIntimidate: {Intimidate}\tStealth: {Stealth}
+			Clash: {Clash}\tLore: {Lore}
+			"""
+			skill_pts = ranks_skills[self.rank]
+			while skill_pts > 0:
+				print(skill_str.format(**skills))
+				user_skill_input = input("Select a skill to put points in. You have {0}/{1} points to expend, and may put a maximum of {2} points into a given skill.\n> ".format(skill_pts, ranks_skills[self.rank], ranks_skills_max[self.rank])).title()
+				if user_skill_input in skill_keys + ["Crafts", "Lore", "Medicine", "Science"]:
+					user_point_input = input("How many points would you like to put into {0}?\n> ".format(user_skill_input))
+					try:
+						user_point_input = int(user_point_input)
+						if user_point_input <= ranks_skills_max[self.rank] and user_point_input <= skill_pts and user_point_input+skills[user_skill_input] <= ranks_skills_max[self.rank]:
+							skills[user_skill_input] += user_point_input
+							skill_pts -= user_point_input
+						else:
+							print("You input too great a number. You can only have {0} points per skill.".format(ranks_skills_max[self.rank]))
+					except:
+						print("You input: {0}. Please enter a number.".format(user_point_input))
+				else:
+					print("You input: {0}. Please enter a skill name.".format(user_skill_input))
+			attr_total = 0
+			soc_total = 0
+			if self.species in ["Human", "Trainer"]:
+				soc_max = 5
+				if self.age in [range(0, 13)]:
+					attr_total += 0
+					soc_total += 0
+				elif self.age in [range(13,18)]:
+					attr_total += 2
+					soc_total += 2
+				elif self.age in [range(18,65)]:
+					attr_total += 4
+					soc_total += 4
+				else:
+					attr_total += 3
+					soc_total += 6
+			ranks_attrs = {"Starter": 0, "Beginner": 2, "Amateur": 4, "Ace": 6, "Pro": 8, "Master": 8, "Champion": 8}
+			attr_total += ranks_attrs[self.rank]
+			soc_total += ranks_attrs[self.rank]
+			attr_str = """
+			Strength: {Strength}
+			Vitality: {Vitality}
+			Dexterity: {Dexterity}
+			Insight: {Insight}
+			Special: {Special}
+			"""
+			soc_str = """
+			Tough: {Tough}
+			Cool: {Cool}
+			Beauty: {Beauty}
+			Clever: {Clever}
+			Cute: {Cute}
+			"""
+			attr_pts = attr_total
+			soc_pts = soc_total
+			print("You have {0} points to expend in total.".format(attr_total, attr_max))
+			while attr_pts > 0:
+				print(attr_str.format(**attrs))
+				print("Select an attribute to put points in. You have {0}/{1} points to expend.".format(attr_pts, attr_total))
+				user_attr_input = input("> ").title()
+				if user_attr_input in attr_keys:
+					user_point_input = input("How many points would you like to put into {0}? You may have a maximum of {1} points in {0}.\n> ".format(user_attr_input, attr_max[user_attr_input]))
+					try:
+						user_point_input = int(user_point_input)
+						if user_point_input <= attr_max[user_attr_input] and user_point_input <= attr_pts and user_point_input+attrs[user_attr_input] <= attr_max[user_attr_input]:
+							attrs[user_attr_input] += user_point_input
+							attr_pts -= user_point_input
+						else:
+							print("You input too great a number. You can only have {0} points for that attribute.".format(attr_max))
+					except:
+						print("You input: {0}. Please enter a number.".format(user_point_input))
+				else:
+					print("You input: {0}. Please enter a skill name.".format(user_attr_input))
+			print("You have {0} points to expend in total. You may not put more than {1} points in a given attribute.".format(soc_total, soc_max))
+			while soc_pts > 0:
+				print(soc_str.format(**socs))
+				user_soc_input = input("Select an attribute to put points in. You have {0}/{1} points to expend, and may put a maximum of {2} points into a given social.\n> ".format(soc_pts, soc_total, soc_max)).title()
+				if user_soc_input in soc_keys:
+					user_point_input = input("How many points would you like to put into {0}?\n> ".format(user_soc_input))
+					try:
+						user_point_input = int(user_point_input)
+						if user_point_input <= soc_max and user_point_input <= soc_pts and user_point_input+socs[user_soc_input] <= soc_max:
+							socs[user_soc_input] += user_point_input
+							soc_pts -= user_point_input
+						else:
+							print("You input too great a number. You can only have {0} points per social.".format(soc_max))
+					except:
+						print("You input: {0}. Please enter a number.".format(user_point_input))
+				else:
+					print("You input: {0}. Please enter a skill name.".format(user_attr_input))
 		self.set_attrs(attrs)
 		self.set_socs(socs)		
 		self.set_skills(skills)
@@ -240,7 +343,7 @@ class Pokemon:
 			print("Age: %d" % (self.age))
 		print("-"*50)
 		print("HP: %d/%d\t\tMax Moves: %d" % (self.currenthp, self.maxhp, self.maxmoves))
-		print("Defense: %d\tSpecial Defense:%d" % (self.defense, self.special_defense))
+		print("Defense: %d\tSpecial Defense: %d" % (self.defense, self.special_defense))
 		print("Initiative: %d\tEvasion: %d\tClash:%d" % (self.initiative, self.battle_evasion, self.battle_clash))
 		print("-"*50)
 		print("Strength: %d\tVitality: %d\tDexterity: %d" % (self.strength, self.vitality, self.dexterity))
@@ -251,6 +354,16 @@ class Pokemon:
 		print("-"*50)
 		if self.species not in ["Human", "Trainer"]:
 			print(self.moves)
+			print("-"*50)
+		print("Alert: %d\tCrafts: %d\tMedicine: %d" % (self.alert, self.crafts, self.medicine))
+		print("Allure: %d\tEtiquette: %d\tNature: %d" % (self.allure, self.etiquette, self.nature))
+		print("Athletic: %d\tEmpathy: %d\tPerform: %d" % (self.athletic, self.empathy, self.perform))
+		print("Brawl: %d\tEvasion: %d\tScience: %d" % (self.brawl, self.evasion, self.science))
+		print("Channel: %d\tIntimidate: %d\tStealth: %d" % (self.channel, self.intimidate, self.stealth))
+		print("Clash: %d\tLore: %d" % (self.clash, self.lore))
+		print("-"*50)
+
+
 
 """
 abc = Pokemon("Pikachu", name="Sparky", rank="Random", rand=True)
