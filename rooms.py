@@ -16,6 +16,7 @@ for index, js in enumerate(json_files):
         location = json_text['Location']
         long_desc = json_text['Long Description']
         inv = json_text['Inventory']
+        inside = json_text['Inside']
         n = json_text['Directions'][0]['North']
         ne = json_text['Directions'][1]['Northeast']
         e = json_text['Directions'][2]['East']
