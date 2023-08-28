@@ -1,4 +1,5 @@
 import re
+import random
 from pokemon import Pokemon
 from rooms import rooms
 
@@ -14,6 +15,8 @@ def parse_command(user_command, current_room):
 			second_command = commands[1].lower()
 			if len(commands) > 2:
 				third_command = commands[2].lower()
+				if len(commands) > 3:
+					fourth_command = commands[3].lower()
 		if main_command in ["say", "speak", "ask", "inquire"]:
 			endstr = ""
 			if commands[-1][-1] not in [".", "?", "!"]:
@@ -43,6 +46,8 @@ def parse_command(user_command, current_room):
 				print(rooms[rooms["ID"]==current_room]["Long Description"].values[0])
 			else:
 				print("You are looking at %s." % (look_target))
+		else:
+			print(random.choice(["What are you trying to do?", "Try phrasing that differently.", "Did you use the right word order?"]))
 		return [True, current_room]
 
 def char_creation():
