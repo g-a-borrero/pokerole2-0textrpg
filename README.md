@@ -6,6 +6,7 @@ A pitiful attempt to make the TTRPG (version 2.0) playable as a text RPG adventu
 
 # What I'm Working On
 - [x] Pokemon Class
+  - [ ] Rank Up
 - [x] Moves
 - [x] Pokedex
 - [x] Abilities
@@ -15,7 +16,7 @@ A pitiful attempt to make the TTRPG (version 2.0) playable as a text RPG adventu
 - [ ] Rooms
 - [ ] Battle System
 - [ ] NPCs
-- [ ] Character Creation
+- [x] Character Creation
 - [ ] Save System
 
 # Other Notes
